@@ -1,0 +1,124 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type HolidayType {
+  _id: String
+  start: DateTime
+  end: DateTime
+  type: String
+  state: String
+  employee: UserType!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserType {
+  _id: String!
+  email: String!
+  telephone: String!
+  username: String!
+  password: String!
+  name: String!
+  surname: String!
+  admin: Boolean!
+  avatar: String
+  holidays: [HolidayType!]
+  holiday: Boolean!
+  position: String!
+  departement: String!
+  work: String!
+}
+
+type LoggedUserType {
+  user: UserType
+  token: String
+}
+
+type FileType {
+  path: String
+  error: String
+}
+
+type Query {
+  HolidaysRequests: [HolidayType!]!
+  MyHolidays: [HolidayType!]!
+  login(loginInput: LoginInput!): LoggedUserType!
+  getUsers: [UserType!]!
+  getUserWithToken: UserType!
+  getUser(userid: String!): UserType!
+}
+
+"""Login Input"""
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  holidayRequest(holidayInput: HolidayInput!): HolidayType!
+  acceptHoliday(holidayId: String!): HolidayType!
+  refusHoliday(holidayId: String!): HolidayType!
+  expireHoliday(holidayId: String!): HolidayType!
+  deleteHoliday(holidayId: String!): HolidayType!
+  addUser(UserInput: AddUserInput!): UserType!
+  updateUser(UpdateUserInput: UpdateUserInput!): UserType!
+  updateUserById(UpdateUserInput: UpdateUserInput!): UserType!
+  updateUserPassword(UpdatePasswordInput: UpdatePasswordInput!): UserType!
+  deleteUser(userid: String!): UserType!
+  uploadImage(file: Upload!): FileType!
+  uploadFile(file: Upload!): FileType!
+  removeAvatar(path: String!): String!
+}
+
+"""Add holiday"""
+input HolidayInput {
+  start: DateTime!
+  end: DateTime!
+  type: String!
+  state: String!
+}
+
+"""add user input"""
+input AddUserInput {
+  email: String!
+  telephone: String!
+  username: String!
+  password: String!
+  name: String!
+  surname: String!
+  admin: Boolean!
+  avatar: String
+  holiday: Boolean!
+  position: String!
+  departement: String!
+  work: String!
+}
+
+"""update user input"""
+input UpdateUserInput {
+  id: String
+  email: String
+  telephone: String
+  username: String
+  name: String
+  surname: String
+  holiday: Boolean
+  admin: Boolean
+  avatar: String
+  position: String
+  departement: String
+  work: String
+}
+
+"""update user password input"""
+input UpdatePasswordInput {
+  oldPassword: String!
+  newPassword: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
