@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Link,Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
@@ -12,9 +11,7 @@ import ProfileScreen from "./components/ProfileScreen"
 import UsersScreen from './components/UsersScreen';
 import HolidayScreen from './components/HolidayScreen';
 import HolidayRequestScreen from "./components/HolidayRequest"
-
 import ProtectedRoute from "./utils/ProtectedRoute"
-import AdminRoute from "./utils/AdminRoute"
 
 const httpLink = createHttpLink({
   uri:`${process.env.REACT_APP_IP}/graphql`
