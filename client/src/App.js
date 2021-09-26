@@ -17,10 +17,11 @@ import ProtectedRoute from "./utils/ProtectedRoute"
 import AdminRoute from "./utils/AdminRoute"
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql'
+  uri:`${process.env.REACT_APP_IP}/graphql`
 });
+
 const uploadLink = createUploadLink({
-  uri: 'http://localhost:5000/graphql',
+  uri:`${process.env.REACT_APP_IP}/graphql`
 })
 
 const authLink = setContext((_, { headers }) => {
@@ -33,7 +34,7 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 const client = new ApolloClient({
-  link: ApolloLink.from([authLink,uploadLink, httpLink]),
+  link: ApolloLink.from([authLink,uploadLink,httpLink]),
   cache: new InMemoryCache()
 })
 
@@ -41,8 +42,7 @@ const client = new ApolloClient({
 function App() {
   
   return (
-    <ApolloProvider client={client}>
-      
+    <ApolloProvider client={client}> 
       <BrowserRouter>
       <Header/>
          <Switch>
